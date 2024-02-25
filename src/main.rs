@@ -17,9 +17,7 @@ fn get_user_number() -> Result<u8, num::ParseIntError> {
 }
 
 fn handle_guess_correction(guess_attempt: &u8, guessed: &u8) {
-    let is_greater = guess_attempt > guessed;
-
-    match is_greater {
+    match guess_attempt > guessed {
         true => println!("Noo, lower expecations!"),
         false => println!("It's more!"),
     }
