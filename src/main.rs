@@ -23,17 +23,16 @@ fn handle_guess_correction(guess_attempt: &u8, guessed: &u8) {
     }
 }
 
-fn ask_user_for_guess(guessed: &u8) -> bool {
+fn ask_user_for_guess(guessed: &u8) {
     let guess_attempt = get_user_number().expect("Number parsing error");
 
     match &guess_attempt {
         _ if &guess_attempt == guessed => {
             println!("Exactly!");
-            true
         }
         _ => {
             handle_guess_correction(&guess_attempt, &guessed);
-            false
+            ask_user_for_guess(guessed);
         }
     }
 }
@@ -42,5 +41,5 @@ fn main() {
     let value = create_random_number();
 
     println!("Guess the name from 1 to 100");
-    while ask_user_for_guess(&value) != true {}
+    ask_user_for_guess(&value);
 }
