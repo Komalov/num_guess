@@ -23,30 +23,30 @@ fn get_user_number() -> Result<u8, num::ParseIntError> {
 fn handle_guess_correction(guess_attempt: &u8, guessed: &u8) {
     let is_greater = is_first_value_greater_then_second(&guess_attempt, &guessed);
 
-    if is_greater {
-        println!("Noo, lower expecations!")
-    } else {
-        println!("It's more!")
+    match is_greater {
+        true => println!("Noo, lower expecations!"),
+        false => println!("It's more!"),
     }
 }
 
 fn ask_user_for_guess(guessed: &u8) -> bool {
-    println!("Guess the name from 1 to 100");
-
     let guess_attempt = get_user_number().expect("Number parsing error");
 
-    if &guess_attempt == guessed {
-        println!("Exactly!");
-        return true;
+    match &guess_attempt {
+        _ if &guess_attempt == guessed => {
+            println!("Exactly!");
+            true
+        }
+        _ => {
+            handle_guess_correction(&guess_attempt, &guessed);
+            false
+        }
     }
-
-    handle_guess_correction(&guess_attempt, &guessed);
-
-    false
 }
 
 fn main() {
     let value = create_random_number();
 
+    println!("Guess the name from 1 to 100");
     while ask_user_for_guess(&value) != true {}
 }
