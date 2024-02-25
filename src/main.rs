@@ -6,10 +6,6 @@ fn create_random_number() -> u8 {
     thread_rng().gen_range(1..=100)
 }
 
-fn is_first_value_greater_then_second(x: &u8, y: &u8) -> bool {
-    x > y
-}
-
 fn get_user_number() -> Result<u8, num::ParseIntError> {
     let mut guess_attempt = String::new();
     io::stdin()
@@ -21,7 +17,7 @@ fn get_user_number() -> Result<u8, num::ParseIntError> {
 }
 
 fn handle_guess_correction(guess_attempt: &u8, guessed: &u8) {
-    let is_greater = is_first_value_greater_then_second(&guess_attempt, &guessed);
+    let is_greater = guess_attempt > guessed;
 
     match is_greater {
         true => println!("Noo, lower expecations!"),
